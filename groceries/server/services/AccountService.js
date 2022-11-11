@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext'
+import { BadRequest, Forbidden } from "../utils/Errors"
 
 // Private Methods
 
@@ -73,6 +74,38 @@ class AccountService {
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     )
     return account
+  }
+
+  async getUserSettings(userInfo) {
+    const settings = await dbContext.Settings.findOne({ accountId: userInfo.id })
+    if (!settings) {
+      throw new BadRequest("Could not find settings for this user!");
+    }
+    return settings;
+  }
+
+  async createUserSettings(settingsData, userInfo) {
+    settingsData.accountId = userInfo.id;
+    const settings = await dbContext.Settings.create(settingsData);
+    return settings;
+  }
+
+  async saveUserSettings(settingsData, userInfo) {
+    const settings = await this.getUserSettings(userInfo);
+
+    // @ts-ignore
+    if (settings.accountId.toString() !== userInfo.id) {
+      throw new Forbidden("You can't change another user's settings.  Be gone!");
+    }
+
+    settings.textColor = settingsData.textColor || settings.textColor;
+    settings.bgColor = settingsData.bgColor || settings.bgColor;
+    settings.theme = settingsData.theme || settings.theme;
+    settings.coverImg = settingsData.coverImg || settings.coverImg;
+
+    await settings.save();
+
+    return settings;
   }
 }
 export const accountService = new AccountService()

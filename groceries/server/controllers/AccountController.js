@@ -8,6 +8,9 @@ export class AccountController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getUserAccount)
+      .get("/settings", this.getUserSettings)
+      .post("/settings", this.createUserSettings)
+      .put("/settings", this.saveUserSettings);
   }
 
   async getUserAccount(req, res, next) {
@@ -15,6 +18,36 @@ export class AccountController extends BaseController {
       const account = await accountService.getAccount(req.userInfo)
       res.send(account)
     } catch (error) {
+      next(error)
+    }
+  }
+
+  async getUserSettings(req, res, next) {
+    try {
+      const settings = await accountService.getUserSettings(req.userInfo);
+      res.send(settings);
+    }
+    catch (error) {
+      next(error)
+    }
+  }
+
+  async createUserSettings(req, res, next) {
+    try {
+      const settings = await accountService.createUserSettings(req.body, req.userInfo);
+      res.send(settings);
+    }
+    catch(error) {
+      next(error)
+    }
+  }
+
+  async saveUserSettings(req, res, next) {
+    try {
+      const settings = await accountService.saveUserSettings(req.body, req.userInfo);
+      res.send(settings);
+    }
+    catch(error) {
       next(error)
     }
   }
