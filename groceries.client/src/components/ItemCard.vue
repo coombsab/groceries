@@ -1,12 +1,12 @@
 <template>
   <section class="item-card px-3 py-1 text-visible" :id="'item-card-' + item.name">
     <div class="content-wrapper d-flex align-items-center gap-2 justify-content-between">
-      <!-- <CreatorIcon :key="item.id" :item="item" /> -->
+      <CreatorIcon :key="item.id" :item="item" />
       <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center">
         <input type="checkbox" :id="'checkbox-' + item.name" @click="toggleFormatting()">
         <label :for="'checkbox-' + item.name" :id="'checkbox-label-' + item.name" class="flex-grow-1">{{item.name}}</label>
       </div>
-      <!-- <ItemOptionsMenu :key="item.id" :item="item" /> -->
+      <ItemOptionsMenu :key="item.id" :item="item" />
     </div>
     
   </section>
