@@ -13,5 +13,6 @@ export const AppState = reactive({
   itemsHistorical: [],
   settings: null,
   /** @type {import('./models/Apod.js').Apod} */
-  apod: {}
+  apod: {},
+  inUseList: true
 })

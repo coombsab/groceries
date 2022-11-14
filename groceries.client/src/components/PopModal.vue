@@ -47,7 +47,6 @@ export default {
 
     onMounted(() => {
       setupModal()
-      console.log(props.id)
     })
 
     return {

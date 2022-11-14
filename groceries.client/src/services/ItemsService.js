@@ -18,7 +18,7 @@ class ItemsService {
 
   async getItemsHistorical() {
     const res = await api.get("api/items", { params: { inUse: false }});
-    AppState.items = res.data.map(data => new Item(data));
+    AppState.itemsHistorical = res.data.map(data => new Item(data));
   }
 
   async addItem(name) {
@@ -31,7 +31,7 @@ class ItemsService {
   }
 
   async editItem(name, itemId) {
-    let item = this._findItem(itemId)
+    let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}`, { name: name })
     const itemIndex = AppState.items.find(item)
     AppState.activeItem = new Item(res.data)
@@ -39,7 +39,7 @@ class ItemsService {
   }
 
   async toggleInUse(itemId) {
-    let item = this._findItem(itemId)
+    let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}/toggleInUse`)
     const updatedItem = new Item(res.data)
 
@@ -55,10 +55,10 @@ class ItemsService {
   }
 
   async deleteItem(itemId) {
-    let item = this._findItem(itemId)
+    let item = _findItem(itemId)
     await api.delete(`api/items/${itemId}`)
     AppState.activeItem = null
-    AppState.items = AppState.items.filter(i !== item)
+    AppState.items = AppState.items.filter(i => i !== item)
     AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
   }
 }

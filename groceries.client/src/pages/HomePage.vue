@@ -1,6 +1,7 @@
 <template>
   <section class="home">
-    <ItemCard v-for="i in items" :key="i.id" :item="i" />
+    <ItemCard v-for="i in items" :key="i.id" :item="i" v-if="inUseList" />
+    <ItemCard v-for="i in itemsHistorical" :key="i.name" :item="i" v-else />
     <AddItem />
   </section>
 </template>
@@ -31,6 +32,8 @@ export default {
     })
     return {
       items: computed(() => AppState.items.sort()),
+      itemsHistorical: computed(() => AppState.itemsHistorical.sort()),
+      inUseList: computed(() => AppState.inUseList)
     }
   }
 }

@@ -16,8 +16,8 @@
 import { computed, ref } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { Item } from "../models/Item";
-// import CreatorIcon from "./CreatorIcon.vue";
-// import ItemOptions from "./ItemOptionsMenu.vue";
+import CreatorIcon from "./CreatorIcon.vue";
+import ItemOptions from "./ItemOptionsMenu.vue";
 
 export default {
     props: {
@@ -33,7 +33,7 @@ export default {
             }
         };
     },
-    // components: { CreatorIcon, ItemOptions }
+    components: { CreatorIcon, ItemOptions }
 }
 </script>
 

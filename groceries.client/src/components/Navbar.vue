@@ -5,6 +5,9 @@
         <img alt="logo" src="../assets/img/grocries-logo-no-bg.png" height="45" />
       </div>
     </router-link>
+
+    <!-- TODO get text to toggle -->
+    <span class="btn btn-outline-light" @click="toggleList()">{{buttonText}}</span>
     <button
       class="navbar-toggler"
       type="button"
@@ -31,10 +34,31 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { watchEffect } from "vue";
+import { AppState } from "../AppState";
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    let buttonText = "History"
+
+    watchEffect(() => {
+      if(AppState.inUseList) {
+        console.log("History")
+        buttonText = "History"
+      } else {
+        console.log("List")
+        buttonText = "List"
+      }
+    })
+
+    return {
+      buttonText,
+      isInUseList: computed(() => AppState.isInUseList),
+      toggleList() {
+        AppState.inUseList = !AppState.inUseList
+      }
+    }
   },
   components: { Login }
 }
