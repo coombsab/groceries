@@ -32,7 +32,7 @@ export default {
     }
 
     function modalClick(event) {
-      event.preventDefault();
+      // event.preventDefault();
       event.stopPropagation();
       event.stopImmediatePropagation();
       return false;

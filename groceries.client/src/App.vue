@@ -1,8 +1,8 @@
 <template>
-  <header>
-    <Navbar />
-  </header>
+  <!-- <header>
+  </header> -->
   <main :style="{ backgroundImage: `url(${apod.hdurl ? apod.hdurl : apod.url})` }">
+    <Navbar />
     <router-view />
   </main>
   <!-- <footer class="bg-dark text-light">

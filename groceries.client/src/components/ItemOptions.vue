@@ -5,7 +5,7 @@
       <div class="input-group hidden" id="editNameSubmitInputGroup">
         <div class="form-floating">
           <input type="text" class="form-control" placeholder="Edit Name" id="floatingEditName" minlength="1"
-            v-model="editable.name">
+            v-model="editable.name" onfocus="select()">
           <label for="floatingEditName">Edit Name</label>
         </div>
         <button class="btn btn-light bg-light submit" type="submit"><i class="mdi mdi-magnify"></i></button>
@@ -41,9 +41,9 @@ export default {
       async editItem() {
         try {
           console.log("editing item")
-          await itemsService.editItem(editable.value.name, item.id)
-          Pop.toast(`${item.name} has been renamed ${editable.value.name}`, "success", "top")
-          editable.value = {}
+          const oldItemName = this.item.name
+          await itemsService.editItem(editable.value.name, this.item.id)
+          Pop.toast(`${oldItemName} has been renamed ${editable.value.name}`, "success", "top")
           this.toggleHidden()
           this.closeModal()
         }

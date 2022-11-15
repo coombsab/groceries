@@ -12,12 +12,12 @@ function _findItem(itemId) {
 
 class ItemsService {
   async getItemsInUse() {
-    const res = await api.get("api/items", { params: { inUse: true }});
+    const res = await api.get("api/items", { params: { inUse: true } });
     AppState.items = res.data.map(data => new Item(data));
   }
 
   async getItemsHistorical() {
-    const res = await api.get("api/items", { params: { inUse: false }});
+    const res = await api.get("api/items", { params: { inUse: false } });
     AppState.itemsHistorical = res.data.map(data => new Item(data));
   }
 
@@ -31,11 +31,16 @@ class ItemsService {
   }
 
   async editItem(name, itemId) {
+    console.log("edit from client service")
     let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}`, { name: name })
-    const itemIndex = AppState.items.find(item)
+    const itemIndex = AppState.items.indexOf(item)
     AppState.activeItem = new Item(res.data)
     AppState.items.splice(itemIndex, 1, AppState.activeItem)
+    if (itemIndex < 0) {
+      const newItemIndex = AppState.itemsHistorical.find(item)
+      AppState.itemsHistorical.splice(newItemIndex, 1, AppState.activeItem)
+    }
   }
 
   async toggleInUse(itemId) {

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img alt="logo" src="../assets/img/grocries-logo-no-bg.png" height="45" />
@@ -73,10 +73,18 @@ a:hover {
   text-transform: uppercase;
 }
 
+nav {
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+img {
+  filter: drop-shadow(0 0 3px rgb(247, 247, 247))
 }
 
 @media screen and (min-width: 768px) {

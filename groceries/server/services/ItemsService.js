@@ -60,14 +60,16 @@ class ItemsService {
 
   async editItem(itemData, userInfo) {
     const item = await this.getItemById(itemData.id);
-
+    item.creatorId = userInfo.id;
     item.name = itemData.name || item.name;
     item.textColor = itemData.textColor || item.textColor;
     item.bgColor = itemData.bgColor || item.bgColor;
 
     await item.save();
 
-    return item;
+    const updatedItem = await this.getItemById(item.id);
+
+    return updatedItem;
   }
 
   async deleteItem(itemId) {
