@@ -5,7 +5,10 @@ import { api } from "./AxiosService";
 function _findItem(itemId) {
   let item = AppState.items.find(i => i.id === itemId)
   if (!item) {
-    throw new Error("Cannot find that item to edit.  Probably a bad ID.")
+    item = AppState.itemsHistorical.find(i => i.id === itemId)
+    if (!item) {
+      throw new Error("Cannot find that item to edit.  Probably a bad ID.")
+    }
   }
   return item
 }
