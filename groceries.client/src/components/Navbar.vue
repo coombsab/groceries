@@ -7,8 +7,8 @@
     </router-link>
 
     <!-- TODO get text to toggle -->
-    <span class="btn" @click="toggleList()"><span class="text-visible">{{buttonText}}</span></span>
-    <button
+    <button class="btn" @click="toggleList()"><span class="text-visible">{{buttonText}}</span></button>
+    <!-- <button
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
@@ -27,9 +27,8 @@
           </router-link>
         </li>
       </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
+    </div> -->
+    <Login />
   </nav>
 </template>
 

@@ -8,7 +8,7 @@
             v-model="editable.name" onfocus="select()">
           <label for="floatingEditName">Edit Name</label>
         </div>
-        <button class="btn btn-light bg-light submit" type="submit"><i class="mdi mdi-magnify"></i></button>
+        <button class="btn btn-light bg-light submit" type="submit"><i class="mdi mdi-plus"></i></button>
       </div>
     </form>
     <button class="text-visible rounded" @click="removeItemFromList()">Remove from List</button>
