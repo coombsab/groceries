@@ -7,7 +7,7 @@
     </router-link>
 
     <!-- TODO get text to toggle -->
-    <span class="btn btn-outline-light" @click="toggleList()">{{buttonText}}</span>
+    <span class="btn" @click="toggleList()"><span class="text-visible">{{buttonText}}</span></span>
     <button
       class="navbar-toggler"
       type="button"
@@ -40,23 +40,17 @@ import { AppState } from "../AppState";
 import Login from './Login.vue'
 export default {
   setup() {
-    let buttonText = "History"
-
-    watchEffect(() => {
-      if(AppState.inUseList) {
-        console.log("History")
-        buttonText = "History"
-      } else {
-        console.log("List")
-        buttonText = "List"
-      }
-    })
 
     return {
-      buttonText,
+      buttonText: computed(() => AppState.buttonText),
       isInUseList: computed(() => AppState.isInUseList),
       toggleList() {
         AppState.inUseList = !AppState.inUseList
+        if (AppState.inUseList) {
+          AppState.buttonText = "List"
+        } else {
+          AppState.buttonText = "History"
+        }
       }
     }
   },

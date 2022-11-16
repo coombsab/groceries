@@ -14,5 +14,6 @@ export const AppState = reactive({
   settings: null,
   /** @type {import('./models/Apod.js').Apod} */
   apod: {},
-  inUseList: true
+  inUseList: true,
+  buttonText: "List"
 })
