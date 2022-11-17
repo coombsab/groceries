@@ -41,7 +41,7 @@ class ItemsService {
     AppState.activeItem = new Item(res.data)
     AppState.items.splice(itemIndex, 1, AppState.activeItem)
     if (itemIndex < 0) {
-      const newItemIndex = AppState.itemsHistorical.find(item)
+      const newItemIndex = AppState.itemsHistorical.indexOf(item)
       AppState.itemsHistorical.splice(newItemIndex, 1, AppState.activeItem)
     }
   }

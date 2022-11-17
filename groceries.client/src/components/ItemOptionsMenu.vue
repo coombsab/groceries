@@ -1,5 +1,5 @@
 <template>
-  <img src="../assets/img/dots.png" alt="options" title="Item Options" @click="optionsPopOver()">
+  <button class="btn" @click="optionsPopOver()"><img src="../assets/img/dots.png" alt="options" title="Item Options"></button>
 </template>
 
 <script>

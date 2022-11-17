@@ -41,6 +41,6 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.288);
 }
 </style>

@@ -10,7 +10,8 @@ export class AccountController extends BaseController {
       .get('', this.getUserAccount)
       .get("/settings", this.getUserSettings)
       .post("/settings", this.createUserSettings)
-      .put("/settings", this.saveUserSettings);
+      .put("/settings", this.saveUserSettings)
+      .put("", this.updateAccount);
   }
 
   async getUserAccount(req, res, next) {
@@ -44,8 +45,18 @@ export class AccountController extends BaseController {
 
   async saveUserSettings(req, res, next) {
     try {
-      const settings = await accountService.saveUserSettings(req.body, req.userInfo);
+      const settings = await accountService.saveUserSettings(req.userInfo, req.body);
       res.send(settings);
+    }
+    catch(error) {
+      next(error)
+    }
+  }
+
+  async updateAccount(req, res, next) {
+    try {
+      const account = await accountService.updateAccount(req.userInfo, req.body);
+      res.send(account);
     }
     catch(error) {
       next(error)

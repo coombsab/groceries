@@ -1,5 +1,5 @@
 <template>
-  <img class="creator-icon elevation-3" :src="item.creator.picture" :alt="item.creator.name" :title="item.creator.name" @click="popOver()">
+  <button class="btn" @click="popOver()"><img class="creator-icon elevation-3" :src="item.creator.picture" :alt="item.creator.name" :title="item.creator.name"></button>
 </template>
 
 <script>

@@ -49,7 +49,7 @@ export default {
   }
 
   .checked-card {
-    background-color: rgba(167, 88, 236, 0.078);
+    background-color: rgba(167, 88, 236, 0.249);
     filter: brightness(0.5);
   }
 </style>
