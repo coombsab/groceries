@@ -11,7 +11,7 @@
         <button class="btn btn-light bg-light submit" type="submit"><i class="mdi mdi-plus"></i></button>
       </div>
     </form>
-    <button class="text-visible rounded" @click="removeItemFromList()">Remove from List</button>
+    <button class="text-visible rounded" @click="removeItemFromList()" v-if="inUseList">Remove from List</button>
     <button class="text-visible rounded" @click="deleteItem()">Delete from Database</button>
   </section>
 </template>
@@ -34,6 +34,7 @@ export default {
     return {
       editable,
       item: computed(() => AppState.activeItem),
+      inUseList: computed(() => AppState.inUseList),
       toggleHidden() {
         document.getElementById("editNameBtn").classList.toggle("hidden")
         document.getElementById("editNameSubmitInputGroup").classList.toggle("hidden")
