@@ -54,7 +54,7 @@ class ItemsService {
     if (updatedItem.inUse) {
       AppState.activeItem = updatedItem
       AppState.items.push(updatedItem)
-      AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id === item.id)
+      AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
     } else {
       AppState.activeItem = null
       AppState.items = AppState.items.filter(i => i !== item)

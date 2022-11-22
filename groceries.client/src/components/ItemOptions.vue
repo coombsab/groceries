@@ -40,10 +40,9 @@ export default {
       },
       async editItem() {
         try {
-          console.log("editing item")
           const oldItemName = this.item.name
           await itemsService.editItem(editable.value.name, this.item.id)
-          Pop.toast(`${oldItemName} has been renamed ${editable.value.name}`, "success", "top")
+          Pop.toast(`${oldItemName} has been renamed ${editable.value.name}`, "success", "bottom")
           this.toggleHidden()
           this.closeModal()
         }
@@ -54,12 +53,13 @@ export default {
       async removeItemFromList() {
         try {
           this.closeModal()
-          const yes = await Pop.confirm(`Do you wish to remove ${this.item.name} from the active list?`)
-          console.log("removeItemFromList", yes)
-          if (!yes) {
-            return
-          }
-          // TODO close modal on remove or delete click and on completing the edit
+
+          // Don't necessarily need to confirm removing from list
+          // const yes = await Pop.confirm(`Do you wish to remove ${this.item.name} from the active list?`)
+          // if (!yes) {
+          //   return
+          // }
+          Pop.toast(`${this.item.name} removed from list`, "success", "bottom")
           await itemsService.toggleInUse(this.item.id)
         }
         catch (error) {
