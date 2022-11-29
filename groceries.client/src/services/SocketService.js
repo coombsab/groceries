@@ -28,9 +28,13 @@ class SocketService extends SocketHandler {
   addItem(returnItem) {
     const item = new Item(returnItem)
     Pop.toast(`${item.name} has been added to the list`, "success", "center")
-    if (item.inUse) {
+    const itemIndex = AppState.items.findIndex(i => i.id === item.id)
+    const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
+    if (item.inUse && itemIndex < 0) {
+      console.log("adding item", returnItem)
       AppState.items.push(item)
-    } else {
+    } else if (historyIndex < 0) {
+      console.log("adding historical item", returnItem)
       AppState.itemsHistorical.push(item)
     }
   }

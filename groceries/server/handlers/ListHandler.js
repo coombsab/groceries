@@ -48,13 +48,11 @@ export class ListHandler extends SocketHandler {
     }
 
     async editItem(itemId) {
-      logger.log("Server ListHandler is doing things!")
       const item = await itemsService.getItemById(itemId)
       this.io.emit("EDIT_ITEM", item)
     }
 
     async toggleChecked(itemId) {
-      logger.log("Server ListHandler is doing things!")
       const item = await itemsService.getItemById(itemId)
       this.io.emit("TOGGLE_CHECKED", item)
     }
