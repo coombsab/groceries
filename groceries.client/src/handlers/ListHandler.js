@@ -14,12 +14,10 @@ export class ListHandler {
   }
 
   static removeItem(itemId) {
-    console.log("Client ListHandler is removing an item!")
     socketService.emit("REMOVE_ITEM", itemId)
   }
 
   static deleteItem(itemId) {
-    console.log("Client ListHandler is deleting an item!")
     socketService.emit("DELETE_ITEM", itemId)
   }
 

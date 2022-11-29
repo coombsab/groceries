@@ -31,13 +31,11 @@ class SocketService extends SocketHandler {
     const itemIndex = AppState.items.findIndex(i => i.id === item.id)
     const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
     if (item.inUse) {
-      console.log("adding item", returnItem)
       if (itemIndex < 0) {
         AppState.items.push(item)
         AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
       }
     } else  {
-      console.log("adding historical item", returnItem)
       if (historyIndex < 0) {
         AppState.itemsHistorical.push(item)
         AppState.items = AppState.items.filter(i => i.id !== item.id)

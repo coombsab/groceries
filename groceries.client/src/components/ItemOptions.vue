@@ -75,7 +75,6 @@ export default {
         try {
           this.closeModal()
           const yes = await Pop.confirm(`Do you wish to delete ${this.item.name} from the databse?`)
-          console.log("deleteItem", yes)
           if (!yes) {
             return
           }
