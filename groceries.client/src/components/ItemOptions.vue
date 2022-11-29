@@ -20,6 +20,7 @@
 import { computed } from "@vue/reactivity"
 import { ref, watchEffect } from "vue"
 import { AppState } from "../AppState"
+import { ListHandler } from "../handlers/ListHandler"
 import { itemsService } from "../services/ItemsService"
 import Pop from "../utils/Pop"
 
@@ -38,11 +39,13 @@ export default {
       toggleHidden() {
         document.getElementById("editNameBtn").classList.toggle("hidden")
         document.getElementById("editNameSubmitInputGroup").classList.toggle("hidden")
+        document.getElementById("floatingEditName").focus()
       },
       async editItem() {
         try {
           const oldItemName = this.item.name
           await itemsService.editItem(editable.value.name, this.item.id)
+          ListHandler.editItem(this.item.id)
           Pop.toast(`${oldItemName} has been renamed ${editable.value.name}`, "success", "bottom")
           this.toggleHidden()
           this.closeModal()
@@ -62,6 +65,7 @@ export default {
           // }
           Pop.toast(`${this.item.name} removed from list`, "success", "bottom")
           await itemsService.toggleInUse(this.item.id)
+          ListHandler.removeItem(this.item.id)
         }
         catch (error) {
           Pop.error(error.message, "[removeItemFromList] < ItemOptions")
@@ -76,6 +80,7 @@ export default {
             return
           }
           await itemsService.deleteItem(this.item.id)
+          ListHandler.deleteItem(this.item.id)
         }
         catch (error) {
           Pop.error(error.message, "[deleteItem] < ItemOptions")

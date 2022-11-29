@@ -9,7 +9,19 @@ export class ListHandler {
     socketService.emit("GET_HISTORY")
   }
 
-  static getItemById(itemId) {
-    socketService.emit("GET_ITEM", itemId)
+  static addItem(itemId) {
+    socketService.emit("ADD_ITEM", itemId)
+  }
+
+  static removeItem(itemId) {
+    socketService.emit("REMOVE_ITEM", itemId)
+  }
+
+  static deleteItem(itemId) {
+    socketService.emit("DELETE_ITEM", itemId)
+  }
+
+  static editItem(itemId) {
+    socketService.emit("EDIT_ITEM", itemId)
   }
 }

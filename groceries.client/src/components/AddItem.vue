@@ -12,6 +12,7 @@
 
 <script>
 import { ref } from "vue";
+import { ListHandler } from "../handlers/ListHandler";
 import { itemsService } from "../services/ItemsService";
 import Pop from "../utils/Pop";
 
@@ -22,7 +23,8 @@ export default {
       editable,
       async addItem() {
         try {
-          await itemsService.addItem(editable.value.name)
+          const item = await itemsService.addItem(editable.value.name)
+          ListHandler.addItem(item.id)
           editable.value = {}
         }
         catch(error) {

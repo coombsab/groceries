@@ -11,7 +11,10 @@ export class ListHandler extends SocketHandler {
       this
         .on('GET_LIST', this.getList)
         .on('GET_HISTORY', this.getHistory)
-        .on("GET_ITEM", this.getItem)
+        .on("ADD_ITEM", this.getItem)
+        .on("REMOVE_ITEM", this.getItem)
+        .on("DELETE_ITEM", this.getItem)
+        .on("EDIT_ITEM", this.getItem)
     }
 
     async getList() {

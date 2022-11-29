@@ -6,7 +6,8 @@ import { OBJECT_ID, SCHEMA_OPTIONS } from "../db/DbUtils"
     creatorId: { type: OBJECT_ID, required: true },
     textColor: { type: String },
     bgColor: { type: String },
-    inUse: { type: Boolean, default: true }
+    inUse: { type: Boolean, default: true },
+    isChecked: { type: Boolean, default: false }
   }, SCHEMA_OPTIONS);
 
   ItemSchema.virtual("creator", {

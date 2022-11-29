@@ -13,6 +13,7 @@ export class ItemsController extends BaseController {
       .put("/:itemId/toggleInUse", this.toggleInUse)
       .put("", this.removeInUseItems)
       .put("/:itemId", this.editItem)
+      .put("/:itemId/check", this.toggleChecked)
       .delete("/:itemId", this.deleteItem)
   }
   async getItems(req, res, next) {
@@ -72,7 +73,17 @@ export class ItemsController extends BaseController {
       res.send(item);
     }
     catch (error) {
-      next(error)
+      next(error);
+    }
+  }
+
+  async toggleChecked(req, res, next) {
+    try {
+      const item = await itemsService.toggleChecked(req.params.itemId);
+      res.send(item);
+    }
+    catch(error) {
+      next(error);
     }
   }
 
