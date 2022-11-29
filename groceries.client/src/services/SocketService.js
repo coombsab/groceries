@@ -27,31 +27,39 @@ class SocketService extends SocketHandler {
 
   addItem(returnItem) {
     const item = new Item(returnItem)
-    Pop.toast(`${item.name} has been added to the list`, "success", "center")
+    Pop.toast(`${item.name} has been added to the list`, "success", "bottom")
     const itemIndex = AppState.items.findIndex(i => i.id === item.id)
     const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
-    if (item.inUse && itemIndex < 0) {
+    if (item.inUse) {
       console.log("adding item", returnItem)
-      AppState.items.push(item)
-    } else if (historyIndex < 0) {
+      if (itemIndex < 0) {
+        AppState.items.push(item)
+        AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
+      }
+    } else  {
       console.log("adding historical item", returnItem)
-      AppState.itemsHistorical.push(item)
+      if (historyIndex < 0) {
+        AppState.itemsHistorical.push(item)
+        AppState.items = AppState.items.filter(i => i.id !== item.id)
+
+      }
     }
   }
 
   removeItem(returnItem) {
     const item = new Item(returnItem)
-    Pop.toast(`${item.name} has been removed from the active list`, "success", "center")
-    AppState.items = AppState.items.filter(i => i.id === item.id)
-    if (AppState.itemsHistorical.findIndex(i => i.id === item.id) < 0) {
+    Pop.toast(`${item.name} has been removed from the active list`, "success", "bottom")
+    AppState.items = AppState.items.filter(i => i.id !== item.id)
+    const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
+    if (historyIndex < 0) {
       AppState.itemsHistorical.push(item)
     }
   }
 
   deleteItem(item) {
-    Pop.toast(`${item.name} has been deleted`, "success", "center")
-    AppState.items = AppState.items.filter(i => i.id === item.id)
-    AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id === item.id)
+    Pop.toast(`${item.name} has been deleted`, "success", "bottom")
+    AppState.items = AppState.items.filter(i => i.id !== item.id)
+    AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
   }
 
   editItem(returnItem) {

@@ -64,8 +64,8 @@ export default {
           //   return
           // }
           Pop.toast(`${this.item.name} removed from list`, "success", "bottom")
-          await itemsService.toggleInUse(this.item.id)
           ListHandler.removeItem(this.item.id)
+          await itemsService.toggleInUse(this.item.id)
         }
         catch (error) {
           Pop.error(error.message, "[removeItemFromList] < ItemOptions")
@@ -79,8 +79,8 @@ export default {
           if (!yes) {
             return
           }
-          await itemsService.deleteItem(this.item.id)
           ListHandler.deleteItem(this.item.id)
+          await itemsService.deleteItem(this.item.id)
         }
         catch (error) {
           Pop.error(error.message, "[deleteItem] < ItemOptions")

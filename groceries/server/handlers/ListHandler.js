@@ -30,19 +30,18 @@ export class ListHandler extends SocketHandler {
     }
 
     async addItem(itemId) {
-      logger.log("Server ListHandler is doing things!")
       const item = await itemsService.getItemById(itemId)
       this.io.emit("ADD_ITEM", item)
     }
 
     async removeItem(itemId) {
-      logger.log("Server ListHandler is doing things!")
+      logger.log("Server ListHandler is removing an item!")
       const item = await itemsService.getItemById(itemId)
       this.io.emit("REMOVE_ITEM", item)
     }
 
     async deleteItem(itemId) {
-      logger.log("Server ListHandler is doing things!")
+      logger.log("Server ListHandler is deleting an item!")
       const item = await itemsService.getItemById(itemId)
       this.io.emit("DELETE_ITEM", item)
     }

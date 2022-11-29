@@ -59,7 +59,8 @@ export default {
       async addToListFromHistory() {
         try {
           await itemsService.toggleInUse(props.item.id)
-          Pop.toast(`${props.item.name} added to list`, "success", "center")
+          ListHandler.addItem(props.item.id)
+          Pop.toast(`${props.item.name} added to list`, "success", "bottom")
 
         }
         catch (error) {

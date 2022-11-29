@@ -68,7 +68,10 @@ class ItemsService {
     } else {
       AppState.activeItem = null
       AppState.items = AppState.items.filter(i => i !== item)
-      AppState.itemsHistorical.push(updatedItem)
+      const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
+      if (historyIndex < 0) {
+        AppState.itemsHistorical.push(updatedItem)
+      }
     }
   }
 
