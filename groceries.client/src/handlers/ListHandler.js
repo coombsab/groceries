@@ -24,4 +24,8 @@ export class ListHandler {
   static editItem(itemId) {
     socketService.emit("EDIT_ITEM", itemId)
   }
+
+  static toggleIsItemChecked(itemId) {
+    socketService.emit("TOGGLE_CHECKED", itemId)
+  }
 }

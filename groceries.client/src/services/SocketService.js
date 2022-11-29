@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { Item } from "../models/Item"
 import Pop from '../utils/Pop'
 import { SocketHandler } from '../utils/SocketHandler'
 
@@ -13,6 +14,7 @@ class SocketService extends SocketHandler {
       .on("REMOVE_ITEM", this.removeItem)
       .on("DELETE_ITEM", this.deleteItem)
       .on("EDIT_ITEM", this.editItem)
+      .on("TOGGLE_CHECKED", this.toggleChecked)
   }
 
   setList(items) {
@@ -23,7 +25,9 @@ class SocketService extends SocketHandler {
     AppState.itemsHistorical = itemsHistorical
   }
 
-  addItem(item) {
+  addItem(returnItem) {
+    const item = new Item(returnItem)
+    Pop.toast(`${item.name} has been added to the list`, "success", "center")
     if (item.inUse) {
       AppState.items.push(item)
     } else {
@@ -31,17 +35,24 @@ class SocketService extends SocketHandler {
     }
   }
 
-  removeItem(item) {
+  removeItem(returnItem) {
+    const item = new Item(returnItem)
+    Pop.toast(`${item.name} has been removed from the active list`, "success", "center")
     AppState.items = AppState.items.filter(i => i.id === item.id)
+    if (AppState.itemsHistorical.findIndex(i => i.id === item.id) < 0) {
+      AppState.itemsHistorical.push(item)
+    }
   }
 
   deleteItem(item) {
+    Pop.toast(`${item.name} has been deleted`, "success", "center")
     AppState.items = AppState.items.filter(i => i.id === item.id)
     AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id === item.id)
   }
 
-  editItem(item) {
-    let itemIndex = AppState.items.indexOf(item)
+  editItem(returnItem) {
+    const item = new Item(returnItem)
+    let itemIndex = AppState.items.findIndex(i => i.id === item.id)
     if (itemIndex >= 0) {
       AppState.activeItem = item
       AppState.items.splice(itemIndex, 1, AppState.activeItem)
@@ -50,6 +61,10 @@ class SocketService extends SocketHandler {
       AppState.activeItem = item
       AppState.itemsHistorical.splice(newItemIndex, 1, AppState.activeItem)
     }
+  }
+
+  toggleChecked(returnItem) {
+    this.editItem(returnItem)
   }
 
   onError(e) {

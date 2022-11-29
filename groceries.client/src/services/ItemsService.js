@@ -2,18 +2,18 @@ import { AppState } from "../AppState";
 import { Item } from "../models/Item";
 import { api } from "./AxiosService";
 
+function _findItem(itemId) {
+  let item = AppState.items.find(i => i.id === itemId)
+  if (!item) {
+    item = AppState.itemsHistorical.find(i => i.id === itemId)
+    if (!item) {
+      throw new Error("Cannot find that item to edit.  Probably a bad ID.")
+    }
+  }
+  return item
+}
 
 class ItemsService {
-  findItem(itemId) {
-    let item = AppState.items.find(i => i.id === itemId)
-    if (!item) {
-      item = AppState.itemsHistorical.find(i => i.id === itemId)
-      if (!item) {
-        throw new Error("Cannot find that item to edit.  Probably a bad ID.")
-      }
-    }
-    return item
-  }
 
   async getItemsInUse() {
     const res = await api.get("api/items", { params: { inUse: true } });
@@ -37,8 +37,7 @@ class ItemsService {
   }
 
   async editItem(name, itemId) {
-    console.log("edit from client service")
-    let item = this.findItem(itemId)
+    let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}`, { name: name })
     const itemIndex = AppState.items.indexOf(item)
     AppState.activeItem = new Item(res.data)
@@ -58,7 +57,7 @@ class ItemsService {
   }
 
   async toggleInUse(itemId) {
-    let item = this.findItem(itemId)
+    let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}/toggleInUse`)
     const updatedItem = new Item(res.data)
 

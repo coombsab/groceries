@@ -1,13 +1,12 @@
 <template>
-  <!-- <section class="item-card px-3 py-1 text-visible" :id="'item-card-' + item.name"> -->
-    <section class="item-card px-3 py-1 text-visible" :id="'item-card-' + item.name" :class="item.isChecked ? 'checked-card' : ''">
+  <section class="item-card px-3 py-1 text-visible" :id="'item-card-' + item.name"
+    :class="item.isChecked ? 'checked-card' : ''">
     <div class="content-wrapper d-flex align-items-center gap-2 justify-content-between">
       <CreatorIcon :key="item.id" :item="item" />
       <div>
         <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-if="inUseList">
           <input type="checkbox" :id="'checkbox-' + item.name" @click="toggleChecked()">
-          <!-- <label :for="'checkbox-' + item.name" :id="'checkbox-label-' + item.name" class="flex-grow-1">{{ item.name
-          }}</label> -->
+
           <label :for="'checkbox-' + item.name" :id="'checkbox-label-' + item.name" class="flex-grow-1"
             :class="item.isChecked ? 'checked' : ''">{{ item.name }}</label>
         </div>
@@ -24,6 +23,7 @@
 <script>
 import { computed, ref } from "@vue/reactivity";
 import { AppState } from "../AppState";
+import { ListHandler } from "../handlers/ListHandler";
 import { Item } from "../models/Item";
 import { itemsService } from "../services/ItemsService";
 import Pop from "../utils/Pop";
@@ -49,6 +49,7 @@ export default {
         try {
           this.toggleFormatting()
           await itemsService.toggleChecked(props.item.id)
+          ListHandler.toggleIsItemChecked(props.item.id)
         }
         catch (error) {
           this.toggleFormatting();
