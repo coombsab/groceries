@@ -67,9 +67,9 @@ class SocketService extends SocketHandler {
       AppState.activeItem = item
       AppState.items.splice(itemIndex, 1, AppState.activeItem)
     } else {
-      itemIndex = AppState.itemsHistorical.indexOf(item)
+      itemIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
       AppState.activeItem = item
-      AppState.itemsHistorical.splice(newItemIndex, 1, AppState.activeItem)
+      AppState.itemsHistorical.splice(itemIndex, 1, AppState.activeItem)
     }
   }
 

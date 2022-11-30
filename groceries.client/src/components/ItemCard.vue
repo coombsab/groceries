@@ -3,16 +3,14 @@
     :class="item.isChecked ? 'checked-card' : ''">
     <div class="content-wrapper d-flex align-items-center gap-2 justify-content-between">
       <CreatorIcon :key="item.id" :item="item" />
-      <div>
-        <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-if="inUseList">
-          <input type="checkbox" :id="'checkbox-' + item.name" @click="toggleChecked()">
+      <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-if="inUseList">
+        <input type="checkbox" :id="'checkbox-' + item.name" @click="toggleChecked()">
 
-          <label :for="'checkbox-' + item.name" :id="'checkbox-label-' + item.name" class="flex-grow-1"
-            :class="item.isChecked ? 'checked' : ''">{{ item.name }}</label>
-        </div>
-        <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-else>
-          <span class="flex-grow-1" @click="addToListFromHistory()">{{ item.name }}</span>
-        </div>
+        <label :for="'checkbox-' + item.name" :id="'checkbox-label-' + item.name" class="flex-grow-1"
+          :class="item.isChecked ? 'checked' : ''">{{ item.name }}</label>
+      </div>
+      <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-else>
+        <span class="flex-grow-1" @click="addToListFromHistory()">{{ item.name }}</span>
       </div>
       <ItemOptionsMenu :key="item.id" :item="item" />
     </div>
