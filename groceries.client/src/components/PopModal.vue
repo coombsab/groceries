@@ -43,6 +43,13 @@ export default {
       let body = document.querySelector("body");
       modal.style.display = "none";
       body.style.overflow = "auto";
+      const editNameBtnElem = document.getElementById("editNameBtn")
+      const editNameSubmitInputGroup = document.getElementById("editNameSubmitInputGroup")
+
+      if (editNameBtnElem.classList.contains("hidden")) {
+        editNameBtnElem.classList.toggle("hidden")
+        editNameSubmitInputGroup.classList.toggle("hidden")
+      }
     }
 
     onMounted(() => {
