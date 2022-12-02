@@ -19,6 +19,9 @@ export class AuthHandler extends SocketHandler {
     try {
       const user = await Auth0Provider.getUserInfoFromBearerToken(bearerToken)
       const profile = await accountService.getAccount(user)
+      if (!profile) {
+        throw new Error("Could not get profile on authentication.")
+      }
       const limitedProfile = {
         id: profile.id,
         email: profile.email,

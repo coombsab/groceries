@@ -6,6 +6,7 @@ export class Item {
     this.textColor = data.textColor
     this.bgColor = data.bgColor
     this.inUse = data.inUse
+    this.isChecked = data.isChecked
     this.creator = data.creator
   }
 }

@@ -30,6 +30,7 @@ export default {
     onMounted(() => {
       getItems()
     })
+    
     return {
       items: computed(() => AppState.items.sort()),
       itemsHistorical: computed(() => AppState.itemsHistorical.sort()),

@@ -72,6 +72,13 @@ class ItemsService {
     return updatedItem;
   }
 
+  async toggleChecked(itemId) {
+    const item = await this.getItemById(itemId);
+    item.isChecked = !item.isChecked;
+    await item.save();
+    return item;
+  }
+
   async deleteItem(itemId) {
     const item = await this.getItemById(itemId);
 
