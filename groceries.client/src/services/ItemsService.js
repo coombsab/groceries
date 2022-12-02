@@ -34,7 +34,6 @@ class ItemsService {
   }
 
   async editItem(name, itemId) {
-    console.log("edit from client service")
     let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}`, { name: name })
     const itemIndex = AppState.items.indexOf(item)
