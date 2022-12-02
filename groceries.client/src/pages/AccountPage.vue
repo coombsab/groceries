@@ -1,6 +1,6 @@
 <template>
-  <div class="account d-flex flex-column gap-3 align-items-center text-visible"
-    :style="{ backgroundImage: `url(${account.coverImg})` }">
+  <div class="account m-auto d-flex flex-column gap-3 align-items-center text-visible"
+    :style="{ backgroundImage: `url(${account.coverImg})` }" v-if="account.id">
     <div class="pos-relative picture-element" id="pictureElement">
       <img class="account-photo picture-element" :src="account.picture" alt="" />
       <i class="mdi mdi-square-edit-outline edit-icon picture-element" type="button" aria-label="Edit Picture"
@@ -32,42 +32,46 @@
       <p class="m-0 email-element">{{ account.email }}</p>
     </div>
   </div>
+  <div class="flex-grow-1 d-flex align-items-center" v-else>
+    <p class="fadeIn m-auto fs-1 fw-700 p-3">Could not find your account.</p>
+    <Spinner />
+  </div>
 </template>
 
 <script>
 import { computed, ref, watchEffect } from 'vue'
 import { AppState } from '../AppState'
+import Spinner from "../components/Spinner.vue"
 import { accountService } from "../services/AccountService"
 import Pop from "../utils/Pop"
 export default {
-  setup() {
-    const editable = ref({})
-
-    watchEffect(() => {
-      editable.value = { ...AppState.account }
-    })
-    
-    return {
-      editable,
-      account: computed(() => AppState.account),
-      toggleHidden(elementId) {
-        // document.getElementById(elementId + "Element").classList.toggle("hidden")
-        const elems = document.querySelectorAll(`.${elementId}-element`)
-        elems.forEach(elem => elem.classList.toggle("hidden"))
-        document.getElementById(elementId + "Form").classList.toggle("hidden")
-        document.getElementById(elementId + "Floating").focus()
-      },
-      async editAccount(elementId) {
-        try {
-          this.toggleHidden(elementId)
-          await accountService.editAccount(editable.value)
-        }
-        catch(error) {
-          Pop.error(error.message, "[editAccount] > AccountPage")
-        }
-      }
-    }
-  }
+    setup() {
+        const editable = ref({});
+        watchEffect(() => {
+            editable.value = { ...AppState.account };
+        });
+        return {
+            editable,
+            account: computed(() => AppState.account),
+            toggleHidden(elementId) {
+                // document.getElementById(elementId + "Element").classList.toggle("hidden")
+                const elems = document.querySelectorAll(`.${elementId}-element`);
+                elems.forEach(elem => elem.classList.toggle("hidden"));
+                document.getElementById(elementId + "Form").classList.toggle("hidden");
+                document.getElementById(elementId + "Floating").focus();
+            },
+            async editAccount(elementId) {
+                try {
+                    this.toggleHidden(elementId);
+                    await accountService.editAccount(editable.value);
+                }
+                catch (error) {
+                    Pop.error(error.message, "[editAccount] > AccountPage");
+                }
+            }
+        };
+    },
+    components: { Spinner }
 }
 </script>
 
