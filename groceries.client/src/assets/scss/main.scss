@@ -48,3 +48,25 @@ form:invalid button[type="submit"] {
   font-weight: 700;
   letter-spacing: 0.035rem;
 }
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.fadeIn {
+  animation: fadeIn ease 11s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

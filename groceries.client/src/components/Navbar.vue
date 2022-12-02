@@ -5,7 +5,7 @@
         <img alt="logo" src="../assets/img/grocries-logo-no-bg.png" class="logo" />
       </div>
     </router-link>
-    <button class="btn" @click="toggleList()"><span class="text-visible">{{buttonText}}</span></button>
+    <button class="btn" @click="toggleList()" v-if="route.name === 'Home'"><span class="text-visible">{{buttonText}}</span></button>
     <Login />
   </nav>
 </template>
@@ -13,12 +13,15 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { watchEffect } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import Login from './Login.vue'
 export default {
   setup() {
+    const route = useRoute()
 
     return {
+      route,
       buttonText: computed(() => AppState.buttonText),
       isInUseList: computed(() => AppState.isInUseList),
       toggleList() {
