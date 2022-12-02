@@ -49,6 +49,7 @@ a:hover {
 
 nav {
   background-color: rgba(0, 0, 0, 0);
+  height: 8vh;
 }
 
 .navbar-nav .router-link-exact-active {

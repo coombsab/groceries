@@ -1,7 +1,9 @@
 <template>
   <section class="home" v-if="user.isAuthenticated">
-    <ItemCard v-for="i in items" :key="i.id" :item="i" v-if="inUseList" />
-    <ItemCard v-for="i in itemsHistorical" :key="i.name" :item="i" v-else />
+    <div class="cards">
+      <ItemCard v-for="i in items" :key="i.id" :item="i" v-if="inUseList" />
+      <ItemCard v-for="i in itemsHistorical" :key="i.name" :item="i" v-else />
+    </div>
     <AddItem />
   </section>
   <section class="flex-grow-1 d-flex align-items-center" v-else>
@@ -17,8 +19,6 @@ import { AppState } from "../AppState";
 import Spinner from "../components/Spinner.vue";
 import { itemsService } from "../services/ItemsService";
 import Pop from "../utils/Pop";
-
-
 
 export default {
     setup() {
@@ -48,5 +48,11 @@ export default {
 <style scoped lang="scss">
 .home {
   background-color: rgba(0, 0, 0, 0.288);
+  flex-grow: 1;
+}
+
+.cards {
+  height: 82vh;
+  overflow-y: auto;
 }
 </style>

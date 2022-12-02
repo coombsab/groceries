@@ -42,5 +42,6 @@ export default {
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.75);
+    height: 10vh;
   }
 </style>
