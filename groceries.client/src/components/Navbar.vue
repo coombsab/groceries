@@ -1,5 +1,5 @@
 <template>
-  <nav class="d-flex justify-content-between align-items-center px-3">
+  <nav class="d-flex justify-content-between align-items-center px-3 sticky-top">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <img alt="logo" src="../assets/img/grocries-logo-no-bg.png" class="logo" />
@@ -48,8 +48,11 @@ a:hover {
 }
 
 nav {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.75);
   height: 8vh;
+  /* position: fixed;
+  top: 0;
+  left: 0; */
 }
 
 .navbar-nav .router-link-exact-active {

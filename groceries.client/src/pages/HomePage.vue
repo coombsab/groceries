@@ -52,7 +52,7 @@ export default {
 }
 
 .cards {
-  height: 82vh;
+  height: 80vh;
   overflow-y: auto;
 }
 </style>

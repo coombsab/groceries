@@ -1,13 +1,13 @@
 <template>
-  <form class="add-item-form w-100 p-3" @submit.prevent="addItem()">
-    <div class="input-group">
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingItemName" placeholder="Add item" v-model="editable.name" required>
-        <label for="floatingItemName">Add item</label>
+    <form class="add-item-form w-100 p-2 d-flex align-items-center justify-content-center" @submit.prevent="addItem()">
+      <div class="input-group">
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingItemName" placeholder="Add item" v-model="editable.name" required>
+          <label for="floatingItemName">Add item</label>
+        </div>
+        <button class="btn btn-light" type="submit"><i class="mdi mdi-magnify"></i></button>
       </div>
-      <button class="btn btn-light" type="submit"><i class="mdi mdi-magnify"></i></button>
-    </div>
-  </form>
+    </form>
 </template>
 
 <script>
@@ -42,6 +42,14 @@ export default {
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.75);
-    height: 10vh;
+    height: 12vh;
+  }
+
+  .input-group {
+    height: 100%;
+  }
+
+  #floatingItemName {
+    height: 100%;
   }
 </style>
