@@ -60,15 +60,15 @@ class ItemsService {
     let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}/toggleInUse`)
     const updatedItem = new Item(res.data)
-
+    
     if (updatedItem.inUse) {
       AppState.activeItem = updatedItem
       AppState.items.push(updatedItem)
-      AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
+      AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== updatedItem.id)
     } else {
       AppState.activeItem = null
-      AppState.items = AppState.items.filter(i => i !== item)
-      const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
+      AppState.items = AppState.items.filter(i => i.id !== updatedItem.id)
+      const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === updatedItem.id)
       if (historyIndex < 0) {
         AppState.itemsHistorical.push(updatedItem)
       }

@@ -50,9 +50,6 @@ a:hover {
 nav {
   background-color: rgba(0, 0, 0, 0.75);
   height: 8vh;
-  /* position: fixed;
-  top: 0;
-  left: 0; */
 }
 
 .navbar-nav .router-link-exact-active {

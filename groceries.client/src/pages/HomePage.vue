@@ -1,8 +1,9 @@
 <template>
   <section class="home" v-if="user.isAuthenticated">
     <div class="cards">
-      <ItemCard v-for="i in items" :key="i.id" :item="i" v-if="inUseList" />
-      <ItemCard v-for="i in itemsHistorical" :key="i.name" :item="i" v-else />
+      <ItemCard v-for="i in items" :key="i.id" :item="i" :id="'item-card-' + i.id" v-if="inUseList" />
+      <ItemCard v-for="i in itemsHistorical" :key="i.id + '-historical'" :id="'item-card-' + i.id + '-historical'"
+        :item="i" v-else />
     </div>
     <AddItem />
   </section>
@@ -21,27 +22,28 @@ import { itemsService } from "../services/ItemsService";
 import Pop from "../utils/Pop";
 
 export default {
-    setup() {
-        async function getItems() {
-            try {
-                await itemsService.getItemsInUse();
-                await itemsService.getItemsHistorical();
-            }
-            catch (error) {
-                Pop.error(error.message, "[getItems] < HomePage");
-            }
-        }
-        onMounted(() => {
-            getItems();
-        });
-        return {
-            items: computed(() => AppState.items.sort()),
-            itemsHistorical: computed(() => AppState.itemsHistorical.sort()),
-            inUseList: computed(() => AppState.inUseList),
-            user: computed(() => AppState.user)
-        };
-    },
-    components: { Spinner }
+  setup() {
+    async function getItems() {
+      try {
+        await itemsService.getItemsInUse();
+        await itemsService.getItemsHistorical();
+      }
+      catch (error) {
+        Pop.error(error.message, "[getItems] < HomePage");
+      }
+    }
+    onMounted(() => {
+      getItems();
+
+    });
+    return {
+      items: computed(() => AppState.items.sort()),
+      itemsHistorical: computed(() => AppState.itemsHistorical.sort()),
+      inUseList: computed(() => AppState.inUseList),
+      user: computed(() => AppState.user)
+    };
+  },
+  components: { Spinner }
 }
 </script>
 

@@ -28,6 +28,9 @@ class ItemsService {
   async toggleInUse(itemId) {
     const item = await this.getItemById(itemId);
     item.inUse = !item.inUse;
+    if (!item.inUse) {
+      item.isChecked = false;
+    }
 
     await item.save();
 

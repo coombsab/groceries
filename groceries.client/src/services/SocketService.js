@@ -50,6 +50,8 @@ class SocketService extends SocketHandler {
     AppState.items = AppState.items.filter(i => i.id !== item.id)
     const historyIndex = AppState.itemsHistorical.findIndex(i => i.id === item.id)
     if (historyIndex < 0) {
+      // item.isChecked = false
+      // item.inUse = false
       AppState.itemsHistorical.push(item)
     }
   }
@@ -78,7 +80,7 @@ class SocketService extends SocketHandler {
   }
 
   onError(e) {
-    Pop.toast(e.message, 'error')
+    Pop.toast("Error using socket: " + e.message, 'error')
   }
 }
 

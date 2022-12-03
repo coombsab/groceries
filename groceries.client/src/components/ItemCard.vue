@@ -1,18 +1,17 @@
 <template>
-  <section class="item-card px-3 py-1 text-visible" :id="'item-card-' + item.name"
-    :class="item.isChecked ? 'checked-card' : ''">
+  <section class="item-card px-3 py-1 text-visible" :class="item.isChecked ? 'checked-card' : ''">
     <div class="content-wrapper d-flex align-items-center gap-2 justify-content-between">
-      <CreatorIcon :key="item.id" :item="item" />
+      <CreatorIcon :key="item.id + '-creatorIcon'" :item="item" />
       <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-if="inUseList">
-        <input type="checkbox" :id="'checkbox-' + item.name" @click="toggleChecked()">
+        <input type="checkbox" :id="'checkbox-' + item.id" @click="toggleChecked()">
 
-        <label :for="'checkbox-' + item.name" :id="'checkbox-label-' + item.name" class="flex-grow-1"
+        <label :for="'checkbox-' + item.id" :id="'checkbox-label-' + item.id" class="flex-grow-1"
           :class="item.isChecked ? 'checked' : ''">{{ item.name }}</label>
       </div>
       <div class="content d-flex gap-2 align-items-center flex-grow-1 text-center" v-else>
         <span class="flex-grow-1" @click="addToListFromHistory()">{{ item.name }}</span>
       </div>
-      <ItemOptionsMenu :key="item.id" :item="item" />
+      <ItemOptionsMenu :key="item.id + '-optionsMenu'" :item="item" />
     </div>
 
   </section>
@@ -40,8 +39,8 @@ export default {
       account: computed(() => AppState.account),
       inUseList: computed(() => AppState.inUseList),
       toggleFormatting() {
-        document.getElementById("checkbox-label-" + props.item.name).classList.toggle("checked");
-        document.getElementById("item-card-" + props.item.name).classList.toggle("checked-card");
+        document.getElementById("checkbox-label-" + props.item.id).classList.toggle("checked");
+        document.getElementById("item-card-" + props.item.id).classList.toggle("checked-card");
       },
       async toggleChecked() {
         try {
@@ -79,11 +78,11 @@ input[type=checkbox] {
 .checked {
   // text-decoration: line-through;
   // color: rgb(0, 123, 255);
-  filter: brightness(0.5);
+  filter: brightness(0.375);
 }
 
 .checked-card {
   background-color: rgba(167, 88, 236, 0.249);
-  filter: brightness(0.5);
+  // filter: brightness(0.5);
 }
 </style>

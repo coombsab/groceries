@@ -57,15 +57,11 @@ export default {
       async removeItemFromList() {
         try {
           this.closeModal()
-
-          // Don't necessarily need to confirm removing from list
-          // const yes = await Pop.confirm(`Do you wish to remove ${this.item.name} from the active list?`)
-          // if (!yes) {
-          //   return
-          // }
+          const idForSocket = this.item.id
           Pop.toast(`${this.item.name} removed from list`, "success", "bottom")
-          ListHandler.removeItem(this.item.id)
+          this.toggleFormatting()
           await itemsService.toggleInUse(this.item.id)
+          ListHandler.removeItem(idForSocket)
         }
         catch (error) {
           Pop.error(error.message, "[removeItemFromList] < ItemOptions")
@@ -78,7 +74,8 @@ export default {
           if (!yes) {
             return
           }
-          ListHandler.deleteItem(this.item.id)
+          const idForSocket = this.item.id
+          ListHandler.deleteItem(idForSocket)
           await itemsService.deleteItem(this.item.id)
         }
         catch (error) {
@@ -90,7 +87,15 @@ export default {
         let body = document.querySelector("body");
         modal.style.display = "none";
         body.style.overflow = "auto";
-      }
+      },
+      toggleFormatting() {
+        const itemLabel = document.getElementById("checkbox-label-" + this.item.id);
+        const itemCard = document.getElementById("item-card-" + this.item.id);
+
+        itemLabel.classList.remove("checked");
+        itemCard.classList.remove("checked-card");
+
+      },
     }
   }
 }
