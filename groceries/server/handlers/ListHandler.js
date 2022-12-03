@@ -22,7 +22,7 @@ export class ListHandler extends SocketHandler {
   async getList() {
     try {
       const list = await itemsService.getItems({ inUse: true })
-      this.io.emit("GET_LIST", list)
+      this.socket.broadcast.emit("GET_LIST", list)
     } catch (error) {
       this.socket.emit('error', error)
     }
@@ -31,7 +31,7 @@ export class ListHandler extends SocketHandler {
   async getHistory() {
     try {
       const history = await itemsService.getItems({ inUse: false })
-      this.io.emit("GET_HISTORY", history)
+      this.socket.broadcast.emit("GET_HISTORY", history)
     } catch (error) {
       this.socket.emit('error', error)
     }
@@ -40,7 +40,7 @@ export class ListHandler extends SocketHandler {
   async addItem(itemId) {
     try {
       const item = await itemsService.getItemById(itemId)
-      this.io.emit("ADD_ITEM", item)
+      this.socket.broadcast.emit("ADD_ITEM", item)
     } catch (error) {
       this.socket.emit('error', error)
     }
@@ -49,7 +49,7 @@ export class ListHandler extends SocketHandler {
   async removeItem(itemId) {
     try {
       const item = await itemsService.getItemById(itemId)
-      this.io.emit("REMOVE_ITEM", item)
+      this.socket.broadcast.emit("REMOVE_ITEM", item)
     } catch (error) {
       this.socket.emit('error', error)
     }
@@ -58,7 +58,7 @@ export class ListHandler extends SocketHandler {
   async deleteItem(itemId) {
     try {
       const item = await itemsService.getItemById(itemId)
-      this.io.emit("DELETE_ITEM", item)
+      this.socket.broadcast.emit("DELETE_ITEM", item)
     } catch (error) {
       this.socket.emit('error', error)
     }
@@ -67,7 +67,7 @@ export class ListHandler extends SocketHandler {
   async editItem(itemId) {
     try {
       const item = await itemsService.getItemById(itemId)
-      this.io.emit("EDIT_ITEM", item)
+      this.socket.broadcast.emit("EDIT_ITEM", item)
     } catch (error) {
       this.socket.emit('error', error)
     }
@@ -76,7 +76,7 @@ export class ListHandler extends SocketHandler {
   async toggleChecked(itemId) {
     try {
       const item = await itemsService.getItemById(itemId)
-      this.io.emit("TOGGLE_CHECKED", item)
+      this.socket.broadcast.emit("TOGGLE_CHECKED", item)
     } catch (error) {
       this.socket.emit('error', error)
     }
