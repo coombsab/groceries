@@ -13,7 +13,42 @@ function _findItem(itemId) {
   return item
 }
 
+
 class ItemsService {
+  sortItems() {
+    const checkedItems = AppState.items.filter(i => i.isChecked)
+    const uncheckedItems = AppState.items.filter(i => !i.isChecked)
+
+    checkedItems.sort((a, b) => {
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    })
+
+    uncheckedItems.sort((a, b) => {
+      const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    })
+
+    AppState.items = uncheckedItems.concat(checkedItems)
+  }
 
   async getItemsInUse() {
     const res = await api.get("api/items", { params: { inUse: true } });
@@ -47,6 +82,7 @@ class ItemsService {
       const newItemIndex = AppState.itemsHistorical.indexOf(item)
       AppState.itemsHistorical.splice(newItemIndex, 1, AppState.activeItem)
     }
+    this.sortItems()
   }
 
   async toggleChecked(itemId) {
@@ -54,13 +90,14 @@ class ItemsService {
     const item = new Item(res.data)
     const itemIndex = AppState.items.findIndex(i => i.id === item.id)
     AppState.items.splice(itemIndex, 1, item)
+    this.sortItems()
   }
 
   async toggleInUse(itemId) {
     let item = _findItem(itemId)
     const res = await api.put(`api/items/${itemId}/toggleInUse`)
     const updatedItem = new Item(res.data)
-    
+
     if (updatedItem.inUse) {
       AppState.activeItem = updatedItem
       AppState.items.push(updatedItem)

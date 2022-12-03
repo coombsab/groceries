@@ -63,7 +63,8 @@ export default {
         catch (error) {
           Pop.error(error.message, "[addToListFromHistory] > ItemCard")
         }
-      }
+      },
+      
     };
   },
   components: { CreatorIcon, ItemOptions }

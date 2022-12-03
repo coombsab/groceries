@@ -2,6 +2,7 @@ import { AppState } from "../AppState"
 import { Item } from "../models/Item"
 import Pop from '../utils/Pop'
 import { SocketHandler } from '../utils/SocketHandler'
+import { itemsService } from "./ItemsService"
 
 class SocketService extends SocketHandler {
   constructor() {
@@ -73,6 +74,7 @@ class SocketService extends SocketHandler {
       AppState.activeItem = item
       AppState.itemsHistorical.splice(itemIndex, 1, AppState.activeItem)
     }
+    itemsService.sortItems()
   }
 
   toggleChecked(returnItem) {

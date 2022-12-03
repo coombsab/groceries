@@ -15,7 +15,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { AppState } from "../AppState";
 import Spinner from "../components/Spinner.vue";
 import { itemsService } from "../services/ItemsService";
@@ -36,9 +36,56 @@ export default {
       getItems();
 
     });
+
     return {
-      items: computed(() => AppState.items.sort()),
-      itemsHistorical: computed(() => AppState.itemsHistorical.sort()),
+      items: computed(() => {
+        const checkedItems = AppState.items.filter(i => i.isChecked)
+        const uncheckedItems = AppState.items.filter(i => !i.isChecked)
+
+        checkedItems.sort((a, b) => {
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+        })
+
+        uncheckedItems.sort((a, b) => {
+          const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+          const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          // names must be equal
+          return 0;
+        })
+
+        AppState.items = uncheckedItems.concat(checkedItems)
+        return AppState.items
+      }),
+      itemsHistorical: computed(() => AppState.itemsHistorical.sort((a, b) => {
+        const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+        const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+
+        // names must be equal
+        return 0;
+      })),
       inUseList: computed(() => AppState.inUseList),
       user: computed(() => AppState.user)
     };
