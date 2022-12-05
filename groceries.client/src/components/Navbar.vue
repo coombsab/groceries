@@ -1,10 +1,11 @@
 <template>
   <nav class="d-flex justify-content-between align-items-center px-3 sticky-top">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }" v-if="route.name !== 'Home'">
       <div class="d-flex flex-column align-items-center">
         <img alt="logo" src="../assets/img/grocries-logo-no-bg.png" class="logo" />
       </div>
     </router-link>
+    <Counter v-else />
     <button class="btn" @click="toggleList()" v-if="route.name === 'Home'"><span class="text-visible">{{buttonText}}</span></button>
     <Login />
   </nav>
@@ -15,6 +16,7 @@ import { computed } from "@vue/reactivity";
 import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
+import Counter from "./Counter.vue";
 import Login from './Login.vue'
 export default {
   setup() {
@@ -34,7 +36,7 @@ export default {
       }
     }
   },
-  components: { Login }
+  components: { Login, Counter }
 }
 </script>
 
