@@ -121,10 +121,11 @@ class ItemsService {
   }
 
   async removeInUseItems() {
-    let itemIds = []
-    AppState.items.forEach(i => itemIds.push(i.id))
-    const res = await api.put("api/items", { ids: itemIds })
-    console.log(res.data)
+    const res = await api.put("api/items", { items: AppState.items })
+    AppState.items.forEach(i => {
+      i.inUse = false
+      i.isChecked = false
+    })
     AppState.itemsHistorical = [ ...AppState.itemsHistorical, ...AppState.items ]
     AppState.items = []
   } 

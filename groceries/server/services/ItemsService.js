@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext";
 import { BadRequest, Forbidden } from "../utils/Errors";
+import { logger } from "../utils/Logger";
 
 class ItemsService {
   async getItems(query) {
@@ -40,23 +41,18 @@ class ItemsService {
   async removeInUseItems(body) {
     const updateDocument = [];
 
-    body.ids.forEach(id => {
+    body.items.forEach((item) => {
       const obj = {
         updateOne: {
-          filter: {
-            "_id": id
-          },
-          update: {
-            $set: {
-              "inUse": false
-            }
-          }
+          filter: { "_id": item.id },
+          update: { $set: { "inUse": false, "isChecked": false } }
         }
       }
       updateDocument.push(obj);
     });
 
     const itemsReport = await dbContext.Items.bulkWrite(updateDocument);
+
 
     return itemsReport;
   }

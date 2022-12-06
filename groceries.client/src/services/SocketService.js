@@ -19,11 +19,11 @@ class SocketService extends SocketHandler {
   }
 
   setList(items) {
-    AppState.items = items
+    AppState.items = items.map(data => new Item(data))
   }
 
   setHistory(itemsHistorical) {
-    AppState.itemsHistorical = itemsHistorical
+    AppState.itemsHistorical = itemsHistorical.map(data => new Item(data))
   }
 
   addItem(returnItem) {
