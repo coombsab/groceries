@@ -119,6 +119,15 @@ class ItemsService {
     AppState.items = AppState.items.filter(i => i !== item)
     AppState.itemsHistorical = AppState.itemsHistorical.filter(i => i.id !== item.id)
   }
+
+  async removeInUseItems() {
+    let itemIds = []
+    AppState.items.forEach(i => itemIds.push(i.id))
+    const res = await api.put("api/items", { ids: itemIds })
+    console.log(res.data)
+    AppState.itemsHistorical = [ ...AppState.itemsHistorical, ...AppState.items ]
+    AppState.items = []
+  } 
 }
 
 export const itemsService = new ItemsService();

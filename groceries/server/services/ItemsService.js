@@ -40,11 +40,11 @@ class ItemsService {
   async removeInUseItems(body) {
     const updateDocument = [];
 
-    body.ids.forEach(item => {
+    body.ids.forEach(id => {
       const obj = {
         updateOne: {
           filter: {
-            "_id": item
+            "_id": id
           },
           update: {
             $set: {
