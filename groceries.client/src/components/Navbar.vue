@@ -5,7 +5,9 @@
         <img alt="logo" src="../assets/img/grocries-logo-no-bg.png" class="logo" />
       </div>
     </router-link>
-    <Counter v-else />
+    <div v-else>
+      <Counter v-if="user.isAuthenticated" />
+    </div>
     <button class="btn" @click="toggleList()" v-if="route.name === 'Home'"><span class="text-visible">{{buttonText}}</span></button>
     <Login />
   </nav>
@@ -26,6 +28,7 @@ export default {
       route,
       buttonText: computed(() => AppState.buttonText),
       isInUseList: computed(() => AppState.isInUseList),
+      user: computed(() => AppState.user),
       toggleList() {
         AppState.inUseList = !AppState.inUseList
         if (AppState.inUseList) {

@@ -109,11 +109,6 @@ export default {
 .flip-enter-active {
   transform: rotateY(90deg);
 }
-
-.flip-enter-to {
-
-}
-
 .flip-leave-active {
   transform: rotateY(90deg);
 

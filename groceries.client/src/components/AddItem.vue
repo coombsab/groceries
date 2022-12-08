@@ -5,7 +5,7 @@
           <input type="text" class="form-control" id="floatingItemName" placeholder="Add item" v-model="editable.name" required>
           <label for="floatingItemName">Add item</label>
         </div>
-        <button class="btn btn-light" type="submit"><i class="mdi mdi-magnify"></i></button>
+        <button class="btn btn-light" type="submit"><i class="mdi mdi-plus-outline"></i></button>
       </div>
     </form>
 </template>

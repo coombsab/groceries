@@ -64,6 +64,7 @@ class ItemsService {
     const res = await api.post("api/items", { name: name })
     const item = new Item(res.data)
     AppState.items.push(item)
+    this.sortItems()
     return item
   }
 
@@ -110,6 +111,7 @@ class ItemsService {
         AppState.itemsHistorical.push(updatedItem)
       }
     }
+    this.sortItems()
   }
 
   async deleteItem(itemId) {
